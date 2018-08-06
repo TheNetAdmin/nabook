@@ -1,0 +1,75 @@
+% Part style
+\setlength\epigraphwidth{0.5\linewidth}
+\newbool{withepi}
+\NewEnviron{PartEpigraph}{\global\let\mypartepigraph\BODY}
+\newcommand{\thispartepi}[2]{%
+    \setbool{withepi}{true}%
+    \begin{PartEpigraph}
+        \epigraph{\zihao{-4} #1}{\zihao{5}#2}
+    \end{PartEpigraph}
+}%
+
+\newlength{\labelframewd}
+\settowidth{\labelframewd}{~\footnotesize\textsc{part}~}
+
+\newsavebox{\partlabelbox}
+
+\newcommand{\partlabel}{%
+    \makebox[0pt]{
+        \fcolorbox{themeblue}{themeblue}{%
+            \raisebox{8.4ex}[0pt]{\rlap{\hspace{-\fboxsep}\resizebox*{\dimexpr\labelframewd+2\fboxsep\relax}{!}{\color{themeblue}\scshape\scriptsize{part}}}}%
+            \usebox{\partlabelbox}}
+        }
+        \hskip-\fboxsep
+        \color{themeblue}{\raisebox{-9ex}{\fbox{\phantom{\usebox{\partlabelbox}}}}
+    }
+}%
+
+\renewcommand{\beforepartskip}{\null\vskip10ex}
+\renewcommand{\printpartname}{\sbox{\partlabelbox}{\raisebox{0pt}[7ex][27ex]{\resizebox{\labelframewd}{!}{\hfill\color{white}{\arabic{part}}\hfill}}}\smash{\partlabel}}
+\renewcommand{\partnamenum}{}
+\renewcommand{\printpartnum}{}
+\renewcommand{\midpartskip}{}
+\renewcommand{\printparttitle}[1]{
+    \raggedright
+    {\color{themeblue} \rule{\textwidth}{0.4pt}}
+    \vskip2.5ex
+    \hspace*{3\labelframewd}
+    {\fontsize{32}{40} \sffamily #1}
+    \ifbool{withepi}{
+        \vfill
+        \mypartepigraph
+        \global\setbool{withepi}{false}
+    }{}
+}
+\renewcommand*\thepart{\arabic{part}}
+
+% Chapter style
+\newcommand{\frontchapstyle}{
+    \setlength{\beforechapskip}{-2\baselineskip}
+    \renewcommand{\chapnamefont}{\centering \sffamily \huge}
+    \renewcommand{\chaptitlefont}{\centering \sffamily \huge}
+    \renewcommand{\printchaptername}{}
+    \renewcommand{\chapternamenum}{}
+    \renewcommand{\printchapternum}{}
+    \renewcommand{\printchapternonum}{}
+    \renewcommand{\midchapskip}{}
+    \setlength{\afterchapskip}{\baselineskip}
+}
+
+\newcommand{\mainchapstyle}{%
+    \frontchapstyle
+    \renewcommand{\chapnamefont}{\raggedleft \sffamily \huge}
+    \renewcommand{\chaptitlefont}{\raggedleft \sffamily \huge}
+    \renewcommand{\printchapternum}{\chapnamefont 第\thechapter{}章}
+}
+
+\apptocmd{\frontmatter}{\frontchapstyle{}}{}{}
+\apptocmd{\mainmatter}{\mainchapstyle{}}{}{}
+
+
+% Sub level heading style
+\setsecnumdepth{subsection}
+\setsecheadstyle{\sffamily \Large \raggedright \bfseries}
+\setsubsecheadstyle{\sffamily \large \raggedright \bfseries}
+\setsubsubsecheadstyle{\sffamily \raggedright \bfseries}

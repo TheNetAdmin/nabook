@@ -1,0 +1,17 @@
+% TOC
+\settocdepth{subsection}
+\twocoltocetc
+
+% Centering title of toc in two column page
+\renewcommand{\printtoctitle}[1]{\begin{strip}\printchaptertitle{#1}\end{strip}}
+
+% Centering `part` entry
+\setrmarg{0em}
+\setlength{\cftpartnumwidth}{0pt}
+\renewcommand{\thepart}{第\chinese{part}部分}
+\renewcommand{\partnumberline}[1]{\hfil#1\quad}
+\cftpagenumbersoff{part}
+
+% Pagenums on/off
+\apptocmd{\frontmatter}{\addtocontents{toc}{\cftpagenumbersoff{chapter}}}{}{}
+\apptocmd{\mainmatter}{\addtocontents{toc}{\cftpagenumberson{chapter}}}{}{}

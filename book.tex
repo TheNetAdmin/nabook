@@ -1,0 +1,19 @@
+\documentclass[
+    booktitle       = nabook书籍模板,
+    bookengtitle    = NaBook:\ A\ LaTeX\ Book\ Template,
+    bookauthor      = Zixuan\ Wang,
+    bookyear        = 2018,
+    bookpublished   = {zxwang42\ [at]\ gmail\ [dot]\ com},
+]{config/nabook}
+
+\begin{document}
+    \include{page/cover}
+
+    \frontmatter
+    \chapter{简介}
+    \zhlipsum[1-5][name=zhufu]
+    \include{page/toc}
+
+    \mainmatter
+    \include{content/chnsample}
+\end{document}

@@ -1,0 +1,25 @@
+\thispartepi{凡事预则立，不预则废}{《礼记·中庸》}
+\part{样例部分}
+
+\chapter{样例章}
+\zhlipsum[1][name=zhufu]
+
+\section{样例节}
+\zhlipsum[2-3][name=zhufu]
+
+\subsection{样例小节}
+\zhlipsum[4-5][name=zhufu]
+
+\subsection{样例代码}
+
+\begin{lstlisting}[%
+    language={[mips]Assembler},
+    caption={simple.s}
+]
+.globl boot
+
+# A dead loop
+boot:
+    j   boot
+    nop
+\end{lstlisting}

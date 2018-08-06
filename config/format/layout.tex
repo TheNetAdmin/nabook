@@ -1,0 +1,58 @@
+% Page layout
+\ifdraftdoc
+    \setstocksize{230mm}{180mm}
+\else
+    \setstocksize{297mm}{210mm}
+    \settrims{33.5mm}{15mm}
+\fi
+
+\settrimmedsize{230mm}{180mm}{*}
+\settypeblocksize{530pt}{390pt}{*}
+
+\setlrmargins{*}{*}{*}
+\setulmargins{*}{*}{*}
+
+\setheadfoot{1.2\baselineskip}{2.2\baselineskip}
+\setheaderspaces{*}{\baselineskip}{*}
+\setmarginnotes{3pt}{2cm}{10pt}
+
+\checkandfixthelayout
+
+% Header and footers
+\makeevenfoot{plain}{}{}{}
+\makeoddfoot{plain}{}{}{}
+
+% Front H&F
+\copypagestyle{frontheadings}{plain}
+\makeevenhead{frontheadings}{\bfseries \thepage}{}{}
+\makeoddhead{frontheadings}{}{}{\bfseries \thepage}
+\apptocmd{\frontmatter}{\renewcommand{\thepage}{\Roman{page}} \pagestyle{frontheadings}}{}{}
+
+% Main H&F
+\copypagestyle{mainheadings}{headings}
+\makeevenhead{mainheadings}{\thepage}{}{\leftmark}
+\makeoddhead{mainheadings}{\rightmark}{}{\thepage}
+\makeheadrule{mainheadings}{\textwidth}{\normalrulethickness}
+
+\makeatletter
+\makepsmarks{mainheadings}{
+    \def\chaptermark##1{%
+        \markboth{%
+          \ifnum \c@secnumdepth >\m@ne
+            \if@mainmatter
+              \mbox{第\thechapter{}章\ \ }\ %
+            \fi
+          \fi
+          ##1}{}%
+    }
+    \def\sectionmark##1{%
+        \markright{\MakeUppercase{%
+            \ifnum\c@secnumdepth > \z@
+                \thesection \ %
+            \fi
+            ##1}
+        }
+    }
+}
+\makeatother
+\apptocmd{\mainmatter}{\pagestyle{mainheadings}}{}{}
